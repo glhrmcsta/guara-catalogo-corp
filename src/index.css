@@ -1,0 +1,1443 @@
+:root {
+  /* Brand palette */
+  --guara: #bd916c;
+  --guara-dark: #96714f;
+  --off-white: #f7f2ef;
+  --ink: #2b2420;
+  --ink-soft: #6b5f56;
+  --border: rgba(43, 36, 32, 0.12);
+  --card-bg: #ffffff;
+
+  /* Linha tags — visual weight increases with the linha's positioning:
+     Casual is an outline, Autoral fills with the brand terracotta,
+     Assinatura fills with near-black. */
+  --linha-casual: #d4b79f;
+  --linha-autoral: #bd916c;
+  --linha-assinatura: #1c1613;
+  --linha-text-dark: #3a2e22;
+
+  /* Typography — Neue Haas Grotesk is a licensed font; if you have the license,
+     self-host it in public/fonts and prepend it to --sans (see index.html for notes). */
+  --sans: 'Neue Haas Grotesk Display', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --mono: 'Chivo Mono', ui-monospace, 'SF Mono', Consolas, monospace;
+
+  /* Typographic scale — single source of truth for the site's type hierarchy.
+     Every section-level heading/body/label references one of these instead
+     of a one-off font-size, so the scale stays consistent as sections change. */
+  --font-size-h1: clamp(34px, 5vw, 58px); /* main section title: "Explore nossas linhas" */
+  --line-height-h1: 1.05;
+  --font-size-h2: clamp(24px, 2.8vw, 32px); /* subtitle within a section: "Casual", product name */
+  --line-height-h2: 1.15;
+  --font-size-body: 16px; /* paragraphs */
+  --line-height-body: 1.7;
+  --font-size-small: 14px; /* compact UI text: feature lists, card copy */
+  --font-size-label: 12px; /* Chivo Mono labels/categories */
+  --font-size-kicker: 17px; /* Chivo Mono section overline labels (bigger, bolder) */
+  --letter-spacing-label: 0.08em;
+  /* The manifesto pull-quote is a deliberate outlier — bigger than h2, smaller
+     than h1, so it reads as a callout rather than another section title. */
+  --font-size-quote: clamp(26px, 3.4vw, 38px);
+
+  font: 16px/1.5 var(--sans);
+  color: var(--ink);
+  background: var(--off-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+h1, h2, h3 {
+  font-family: var(--sans);
+  font-weight: 500;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 78vh;
+  /* No overflow:hidden — the image/overlay already fill the box exactly via
+     inset:0, and the search results dropdown needs to be able to extend
+     past the hero's own bottom edge without getting clipped. */
+}
+
+.hero__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* The model spans nearly the full height of the source photo (raised
+     hand near the top, shoe near the bottom) and sits right-of-center
+     horizontally — bias the crop so she stays in frame, at the expense
+     of the wood-door background around her. */
+  object-position: 75% 25%;
+  display: block;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  /* Slightly darker toward the left, where the search block sits, so the
+     off-white text/input stay legible without flattening the whole photo. */
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.3) 30%,
+    rgba(0, 0, 0, 0.15) 55%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
+}
+
+.hero__content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+}
+
+.hero__inner {
+  max-width: 1180px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.hero__headline {
+  max-width: 620px;
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-h1);
+  color: var(--off-white);
+}
+
+.hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin-top: 24px;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--guara);
+  text-decoration: none;
+  border-bottom: 1px solid var(--guara);
+  padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.hero__cta:hover {
+  color: var(--off-white);
+  border-color: var(--off-white);
+}
+
+.hero__cta-arrow {
+  transition: transform 0.2s ease;
+}
+
+.hero__cta:hover .hero__cta-arrow {
+  transform: translateX(3px);
+}
+
+/* ---------- Trust bar ---------- */
+
+.trust-bar-section {
+  padding: 56px 0;
+}
+
+.trust-bar-section__kicker {
+  max-width: 1180px;
+  margin: 0 auto 28px;
+  padding: 0 24px;
+  font-family: var(--mono);
+  font-size: var(--font-size-kicker);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-label);
+  color: var(--guara);
+}
+
+.trust-bar {
+  width: 100%;
+  overflow: hidden;
+}
+
+.trust-bar__track {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+  width: max-content;
+  animation: trust-bar-scroll 35s linear infinite;
+}
+
+.trust-bar:hover .trust-bar__track {
+  animation-play-state: paused;
+}
+
+@keyframes trust-bar-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.trust-bar__logo {
+  /* Every logo gets the exact same slot — height AND width — regardless of
+     its own aspect ratio, so a wide wordmark and a square mark occupy the
+     same visual footprint instead of the wide one dominating the strip. */
+  position: relative;
+  flex: 0 0 auto;
+  width: 130px;
+  height: 40px;
+}
+
+.trust-bar__logo-image {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.trust-bar__logo-mask {
+  position: absolute;
+  inset: 0;
+  background-color: #000;
+  /* Fully opaque by default — a translucent mask here would blend with the
+     full-color image sitting right underneath it (e.g. 60% black over a red
+     logo reads as dark red, not neutral gray), which is exactly what broke
+     the color consistency. Opacity is toggled inline (see TrustBar.jsx) since
+     it tracks per-item hover state in React, not a CSS :hover selector. */
+  transition: opacity 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trust-bar__track {
+    animation-play-state: paused;
+  }
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  background: var(--guara);
+  color: var(--off-white);
+  padding: 28px 24px;
+}
+
+.site-header__inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.site-header__logo {
+  display: inline-block;
+  height: 36px;
+  aspect-ratio: 651 / 180;
+  background-color: var(--off-white);
+  -webkit-mask-image: url('/assets/brand/Logotipo%20-%201.png');
+  mask-image: url('/assets/brand/Logotipo%20-%201.png');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: left center;
+  mask-position: left center;
+}
+
+.site-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.site-header__nav a {
+  color: var(--off-white);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.site-header__nav a:hover {
+  opacity: 1;
+  color: var(--ink);
+}
+
+/* ---------- Mega menu (header "Linhas") ---------- */
+
+.mega-menu {
+  position: relative;
+}
+
+.mega-menu__panel {
+  /* display:none (rather than opacity/visibility) so the panel's box sits
+     flush against the trigger with zero dead space the instant it turns
+     on — no gap for the cursor to lose :hover in while crossing it. */
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(460px, 90vw);
+  /* Invisible bridge: keeps the hover chain unbroken between the trigger
+     and the visible card below, while still reading as a gap visually. */
+  padding-top: 22px;
+  z-index: 50;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .mega-menu:hover .mega-menu__panel,
+  .mega-menu:focus-within .mega-menu__panel {
+    display: block;
+  }
+}
+
+.mega-menu__card {
+  display: flex;
+  flex-direction: column;
+  background: var(--off-white);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 24px 48px rgba(43, 36, 32, 0.22);
+  padding: 28px;
+}
+
+.mega-menu__todas {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 10px 8px;
+  margin: 0 -8px 8px;
+  border: none;
+  border-radius: 6px;
+  background: none;
+  text-align: left;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  transition: background 0.15s ease;
+}
+
+.mega-menu__todas:hover {
+  background: rgba(189, 145, 108, 0.08);
+}
+
+.mega-menu__todas-arrow {
+  transition: transform 0.15s ease;
+}
+
+.mega-menu__todas:hover .mega-menu__todas-arrow {
+  transform: translateX(3px);
+}
+
+.mega-menu__divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 16px 0;
+}
+
+.mega-menu__kicker {
+  font-family: var(--mono);
+  font-size: var(--font-size-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-label);
+  color: var(--guara-dark);
+  margin-bottom: 16px;
+}
+
+/* Single-category group: the kicker doubles as the (only) link, so it
+   needs button resets plus the same hover affordance as the list items. */
+.mega-menu__kicker--link {
+  display: block;
+  width: 100%;
+  padding: 6px 8px;
+  margin: 0 -8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: none;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+
+.mega-menu__kicker--link:hover {
+  background: rgba(189, 145, 108, 0.08);
+}
+
+.mega-menu__linha {
+  display: block;
+  width: 100%;
+  padding: 12px 8px;
+  margin: 0 -8px;
+  border: none;
+  border-radius: 6px;
+  background: none;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+
+/* Adjacent-sibling, not :first-of-type — the "Todas as peças" button above
+   is also a <button>, so :first-of-type would target it instead of Casual. */
+.mega-menu__linha + .mega-menu__linha {
+  border-top: 1px solid var(--border);
+}
+
+.mega-menu__linha:hover {
+  background: rgba(189, 145, 108, 0.08);
+}
+
+.mega-menu__linha-badge {
+  display: block;
+  width: fit-content;
+  margin-bottom: 8px;
+}
+
+.mega-menu__linha-titulo {
+  display: block;
+  font-size: var(--font-size-small);
+  color: var(--ink-soft);
+}
+
+.mega-menu__categorias-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 8px;
+}
+
+.mega-menu__categorias-list {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mega-menu__categorias-list button {
+  display: block;
+  width: 100%;
+  padding: 6px 8px;
+  margin: 0 -8px;
+  border: none;
+  border-radius: 6px;
+  background: none;
+  text-align: left;
+  font-family: var(--mono);
+  font-size: var(--font-size-label);
+  letter-spacing: var(--letter-spacing-label);
+  color: var(--ink);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.mega-menu__categorias-list button:hover {
+  background: rgba(189, 145, 108, 0.08);
+  color: var(--guara-dark);
+}
+
+/* ---------- About ---------- */
+
+.about {
+  background: var(--ink);
+  padding: 80px 0;
+}
+
+.about__inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.about__grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 40px;
+}
+
+.about__photo-col {
+  position: relative;
+  min-height: 420px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.about__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about__photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(43, 36, 32, 0.65) 0%, rgba(43, 36, 32, 0) 45%);
+}
+
+.about__kicker {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 2;
+  font-family: var(--mono);
+  font-size: var(--font-size-kicker);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-label);
+  color: var(--off-white);
+}
+
+.about__body {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: rgba(247, 242, 239, 0.75);
+  max-width: 60ch;
+}
+
+.about__manifesto {
+  margin: 40px 0 8px;
+  max-width: 640px;
+  font-size: var(--font-size-quote);
+  line-height: 1.35;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--guara);
+}
+
+.about__divider {
+  width: 72px;
+  height: 3px;
+  margin: 32px 0 0;
+  border: none;
+  background: var(--guara);
+  border-radius: 2px;
+}
+
+/* ---------- Brand marquee ---------- */
+
+.brand-marquee {
+  width: 100%;
+  overflow: hidden;
+  background: var(--guara);
+  padding: 28px 0;
+}
+
+.brand-marquee__track {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  width: max-content;
+  animation: brand-marquee-scroll 30s linear infinite;
+}
+
+.brand-marquee__item {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  flex: 0 0 auto;
+  font-family: var(--sans);
+  font-size: var(--font-size-h1);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--off-white);
+  white-space: nowrap;
+}
+
+.brand-marquee__dot {
+  font-size: 14px;
+  color: rgba(247, 242, 239, 0.5);
+}
+
+@keyframes brand-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-marquee__track {
+    animation-play-state: paused;
+  }
+}
+
+/* ---------- Search ---------- */
+
+.search-bar {
+  margin-bottom: 32px;
+}
+
+.search-bar__input {
+  width: 100%;
+  max-width: 360px;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card-bg);
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.search-bar__input:focus {
+  outline: none;
+  border-color: var(--guara);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Catalog section (Todas as peças) ---------- */
+
+.catalog-section {
+  padding: 64px 0 16px;
+}
+
+.catalog-section__inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.catalog-section__title {
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-h2);
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+.catalog-section__toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 28px;
+}
+
+.catalog-section__tabs {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+}
+
+.catalog-section__search {
+  width: 100%;
+  max-width: 260px;
+}
+
+.catalog-section__search .search-bar {
+  margin-bottom: 10px;
+}
+
+.catalog-section__search .search-bar__input {
+  width: 100%;
+  max-width: none;
+}
+
+.catalog-section__tab {
+  flex-shrink: 0;
+  border: none;
+  background: none;
+  padding: 10px 2px;
+  font-family: var(--mono);
+  font-size: var(--font-size-label);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-label);
+  color: var(--ink-soft);
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.catalog-section__tab:hover {
+  color: var(--ink);
+}
+
+.catalog-section__tab--active {
+  color: var(--guara-dark);
+  border-bottom-color: var(--guara);
+}
+
+.catalog-section__descricao {
+  max-width: 640px;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--ink-soft);
+  margin: 4px 0 32px;
+  animation: fade-in 0.25s ease;
+}
+
+.catalog-section__carousels {
+  animation: fade-in 0.25s ease;
+}
+
+.catalog-section__empty {
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: var(--font-size-label);
+  padding: 8px 0 24px;
+}
+
+/* ---------- Piece carousel (inside a catalog section tab) ---------- */
+
+.piece-carousel {
+  margin-bottom: 48px;
+}
+
+.piece-carousel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.piece-carousel__heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.piece-carousel__label {
+  font-family: var(--mono);
+  font-size: var(--font-size-label);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-label);
+  color: var(--guara-dark);
+}
+
+.piece-carousel__count {
+  font-family: var(--mono);
+  font-size: var(--font-size-label);
+  color: var(--ink-soft);
+  background: var(--off-white);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+
+.piece-carousel__nav {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.piece-carousel__arrow {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card-bg);
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.piece-carousel__arrow:hover {
+  border-color: var(--guara);
+  color: var(--guara-dark);
+}
+
+.piece-carousel__arrow--hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Breaks out of `.page`'s max-width + padding to run edge-to-edge, using
+   the viewport as the sizing reference instead of the (centered) parent —
+   the standard full-bleed-inside-a-centered-container trick. */
+.piece-carousel__bleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+.piece-carousel__track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: max(24px, calc((100vw - 1180px) / 2 + 24px));
+  padding-left: max(24px, calc((100vw - 1180px) / 2 + 24px));
+  padding-right: max(24px, calc((100vw - 1180px) / 2 + 24px));
+  padding-bottom: 4px;
+  /* Hide the scrollbar across engines while keeping the element scrollable. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.piece-carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+.piece-carousel__slide {
+  flex: 0 0 auto;
+  width: clamp(220px, 19vw, 280px);
+  scroll-snap-align: start;
+}
+
+@media (max-width: 640px) {
+  .piece-carousel {
+    margin-bottom: 36px;
+  }
+
+  .piece-carousel__track {
+    gap: 12px;
+  }
+
+  .piece-carousel__slide {
+    /* One card nearly filling the screen, with a clear slice of the next
+       one peeking in — never shrink the photo to fit more columns. */
+    width: 86vw;
+    max-width: 340px;
+  }
+
+  .piece-carousel__arrow {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+}
+
+/* ---------- Product card ---------- */
+
+.product-card {
+  position: relative;
+  background: var(--card-bg);
+  text-align: left;
+}
+
+.product-card__linha-badge {
+  display: inline-block;
+  background: var(--guara);
+  color: var(--off-white);
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 9px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+}
+
+.product-card__linha-badge--casual {
+  background: transparent;
+  color: var(--linha-text-dark);
+  border-color: var(--linha-casual);
+}
+
+.product-card__linha-badge--autoral {
+  background: var(--linha-autoral);
+  color: var(--off-white);
+}
+
+.product-card__linha-badge--assinatura {
+  background: var(--linha-assinatura);
+  color: var(--off-white);
+}
+
+.product-card__media {
+  display: block;
+  width: 100%;
+  /* Matches the real export ratio of the 2026 photoshoot (~1084x2285,
+     tall portrait). The previous 3/4 box was much squarer than the actual
+     photos, so `object-fit: contain` was pillarboxing hard — enough empty
+     side margin (in a color close to the photo's own backdrop) that it
+     read as the photo being cropped instead of just letterboxed. */
+  aspect-ratio: 19 / 40;
+  padding: 0;
+  border: none;
+  background: var(--off-white);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.product-card__image {
+  width: 100%;
+  height: 100%;
+  /* `cover` instead of `contain`: the container's aspect-ratio (below) is
+     fixed and identical for every card regardless of category, but the
+     source photos vary slightly in their own native ratio (~0.474-0.519).
+     `contain` let that variance show up as a slightly different pillarbox
+     sliver per photo; `cover` fills the fixed box edge to edge every time. */
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-card__image {
+  transform: scale(1.04);
+}
+
+.product-card__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: var(--font-size-label);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--off-white),
+    var(--off-white) 10px,
+    #efe7e1 10px,
+    #efe7e1 20px
+  );
+}
+
+.product-card__info {
+  padding: 20px 16px 16px;
+}
+
+.product-card__name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  text-transform: capitalize;
+  margin-bottom: 8px;
+}
+
+.product-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.product-card__genero {
+  flex-shrink: 0;
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  background: var(--off-white);
+  padding: 3px 9px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+/* ---------- Product modal ---------- */
+
+.product-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(43, 36, 32, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 100;
+}
+
+.product-modal {
+  position: relative;
+  background: var(--off-white);
+  border-radius: 12px;
+  max-width: 920px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: auto;
+  display: flex;
+  box-shadow: 0 24px 60px rgba(43, 36, 32, 0.35);
+}
+
+.product-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card-bg);
+  color: var(--ink);
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.product-modal__close:hover {
+  border-color: var(--guara);
+  color: var(--guara-dark);
+}
+
+.product-modal__media {
+  position: relative;
+  flex: 1 1 55%;
+  background: var(--card-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  /* The image is centered and can be taller than this box (portrait product
+     photos, `max-height: 80vh` sized against the viewport rather than this
+     container). Without clipping, an oversized image spills out of the flex
+     box and visually overlaps the title in `.product-modal__info` below it —
+     which reads as "ghosted/doubled" text since both layers paint in the
+     same spot. Clipping to the box is the safety net regardless of sizing. */
+  overflow: hidden;
+}
+
+.product-modal__image {
+  max-width: 100%;
+  /* Constrained by the actual parent box (which has a real, predictable
+     height — see the mobile override below) instead of a viewport-relative
+     value that has no relation to how much space the flex layout actually
+     gives this element. */
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.product-modal__placeholder {
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: var(--font-size-label);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.product-modal__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ink);
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-modal__nav:hover {
+  border-color: var(--guara);
+  color: var(--guara-dark);
+}
+
+.product-modal__nav--prev {
+  left: 16px;
+}
+
+.product-modal__nav--next {
+  right: 16px;
+}
+
+.product-modal__dots {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.product-modal__dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.product-modal__dot--active {
+  background: var(--guara);
+  border-color: var(--guara);
+}
+
+.product-modal__info {
+  flex: 1 1 45%;
+  padding: 40px 32px;
+}
+
+.product-modal__name {
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-h2);
+  color: var(--ink);
+  text-transform: capitalize;
+  margin-bottom: 8px;
+}
+
+.product-modal__genero {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: var(--font-size-label);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+}
+
+.product-modal__features {
+  margin: 0;
+  padding-left: 18px;
+  font-size: var(--font-size-small);
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .product-modal {
+    flex-direction: column;
+    max-height: 95vh;
+  }
+
+  .product-modal__media {
+    /* `flex: 1 1 55%` (inherited from the base rule) sets a percentage
+       flex-basis, which needs a definite-height flex container to resolve.
+       `.product-modal` only has `max-height` + `overflow: auto`, not a
+       definite height, so that percentage falls back to sizing by content
+       (the image) instead — meaning `height: 50vh` alone was silently
+       ignored by the flex algorithm, and each product's photo box ended up
+       a different height depending on its own aspect ratio. `flex: 0 0 auto`
+       makes the item's main size come from `height` directly, so every
+       product gets the exact same, fixed photo area. */
+    flex: 0 0 auto;
+    height: 45vh;
+    min-height: 260px;
+  }
+
+  .product-modal__info {
+    flex: 1 1 auto;
+  }
+
+  .about__grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .about__photo-col {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 640px) {
+  .trust-bar-section {
+    padding: 36px 0;
+  }
+
+  .about {
+    padding: 56px 0;
+  }
+
+  .brand-marquee {
+    padding: 18px 0;
+  }
+
+  .brand-marquee__track,
+  .brand-marquee__item {
+    gap: 28px;
+  }
+
+  .catalog-section {
+    padding-top: 44px;
+  }
+
+  .faq {
+    padding: 16px 0 48px;
+  }
+
+  .faq__question {
+    font-size: 15px;
+    padding: 18px 2px;
+  }
+
+  .site-header__inner {
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .site-header__nav {
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .about__manifesto {
+    margin: 28px 0 4px;
+  }
+
+  .product-modal__info {
+    padding: 24px 20px 32px;
+  }
+
+  .trust-bar__track {
+    gap: 36px;
+  }
+
+  .trust-bar__logo {
+    width: 100px;
+    height: 30px;
+  }
+}
+
+/* ---------- FAQ ---------- */
+
+.faq {
+  padding: 24px 0 72px;
+}
+
+.faq__inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.faq__title {
+  font-family: var(--mono);
+  font-size: var(--font-size-kicker);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-label);
+  color: var(--guara);
+  margin-bottom: 32px;
+}
+
+.faq__list {
+  border-top: 1px solid var(--border);
+}
+
+.faq__item {
+  border-bottom: 1px solid var(--border);
+}
+
+.faq__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  padding: 22px 4px;
+  border: none;
+  background: none;
+  text-align: left;
+  font-family: var(--sans);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.faq__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  color: var(--guara);
+  font-size: 20px;
+  line-height: 1;
+  transition: transform 0.25s ease;
+}
+
+.faq__icon--open {
+  transform: rotate(45deg);
+}
+
+.faq__answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+
+.faq__answer--open {
+  grid-template-rows: 1fr;
+}
+
+.faq__answer-inner {
+  overflow: hidden;
+}
+
+.faq__answer-text {
+  padding: 0 4px 22px;
+  max-width: 70ch;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--ink-soft);
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  background: var(--ink);
+  color: var(--off-white);
+  padding: 56px 0;
+}
+
+.site-footer__inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.site-footer__logo {
+  display: inline-block;
+  height: 30px;
+  aspect-ratio: 651 / 180;
+  background-color: var(--off-white);
+  -webkit-mask-image: url('/assets/brand/Logotipo%20-%201.png');
+  mask-image: url('/assets/brand/Logotipo%20-%201.png');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: left center;
+  mask-position: left center;
+}
+
+.site-footer__info {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.site-footer__address {
+  font-family: var(--mono);
+  font-size: var(--font-size-label);
+  letter-spacing: var(--letter-spacing-label);
+  color: rgba(247, 242, 239, 0.75);
+}
+
+.site-footer__instagram {
+  font-family: var(--mono);
+  font-size: var(--font-size-label);
+  letter-spacing: var(--letter-spacing-label);
+  color: var(--off-white);
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.site-footer__instagram:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .site-footer {
+    padding: 40px 0;
+  }
+
+  .site-footer__inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .site-footer__info {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/* ---------- WhatsApp float button ---------- */
+
+.whatsapp-button {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #25d366;
+  border-radius: 50%;
+  box-shadow: 0 4px 14px rgba(43, 36, 32, 0.3);
+  z-index: 40;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.whatsapp-button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(43, 36, 32, 0.4);
+}
+
+.whatsapp-button--hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .whatsapp-button {
+    width: 52px;
+    height: 52px;
+    right: 16px;
+    bottom: 16px;
+  }
+}

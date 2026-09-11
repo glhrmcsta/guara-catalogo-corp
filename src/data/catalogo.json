@@ -1,0 +1,29 @@
+{
+  "marca": {
+    "nome": "Guará",
+    "tagline": "o uniforme da hospitalidade brasileira",
+    "sobre": "A Guará nasceu em 2017 a partir de uma necessidade concreta: aproximar o design autoral da rotina intensa da hospitalidade e criar roupas que realmente acompanhassem o ritmo do dia a dia. Fundada por Luísa Enout, a marca começou no sob medida — costurando história por história, equipe por equipe — até se consolidar como referência no desenvolvimento de um vestuário híbrido e utilitário.\n\nPorque vestir uma equipe também é comunicar. É traduzir valores, criar pertencimento e fazer com que cada pessoa reconheça, naquilo que veste, o lugar que ocupa.\n\nFoi essa experiência — testada todos os dias em cozinhas, salões e operações que não podem parar — que nos trouxe até aqui. Hoje, levamos para o ambiente corporativo a mesma qualidade, funcionalidade e versatilidade que desenvolvemos para a linha de frente da hospitalidade brasileira.",
+    "manifesto": "Nós vestimos quem constrói, todos os dias, a hospitalidade brasileira."
+  },
+  "linhas": [
+    {
+      "slug": "casual",
+      "nome": "Casual",
+      "titulo": "feito para o uso diário",
+      "descricao": "A linha Casual é voltada para o operacional contínuo. São uniformes desenvolvidos para acompanhar o ritmo intenso da rotina, com foco em facilidade de manutenção, mobilidade e padronização visual. É a escolha ideal para equipes que precisam de soluções práticas, eficientes e consistentes no dia a dia, sem abrir mão de identidade e organização."
+    },
+    {
+      "slug": "autoral",
+      "nome": "Autoral",
+      "titulo": "feito para expressar a casa",
+      "descricao": "A linha Autoral contempla uniformes com desenvolvimento de design alinhado à identidade. Inclui escolhas específicas de modelagem, tecidos, cores e acabamentos, respeitando as necessidades operacionais para reforçar o posicionamento e a linguagem. É a categoria para quem entende o vestuário como parte da experiência."
+    },
+    {
+      "slug": "assinatura",
+      "nome": "Assinatura",
+      "titulo": "feito para marcas exclusivas",
+      "descricao": "A linha Assinatura representa o nível mais exclusivo da Guará. São uniformes desenvolvidos sob medida, com alto nível de acabamento, tiragens limitadas e foco na representação institucional. Indicada para contextos de alta visibilidade, essa categoria transforma o uniforme em símbolo de excelência, reforçando imagem, presença e distinção."
+    }
+  ],
+  "produtos": []
+}
