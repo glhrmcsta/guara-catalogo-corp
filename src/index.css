@@ -1066,6 +1066,17 @@ button {
        pushes all of the crop to the feet, which reads fine in a product
        grid (the modal still shows the uncropped photo on click). */
     object-position: top;
+    /* `cover` already fills the box with no gaps, but these full-body
+       shots leave the model occupying only ~30-55% of the frame's width
+       (generous side margin for framing/retouching), so even a gapless
+       crop reads as "small and distant". Scaling the already-cover-fitted
+       image up crops that side margin away on both sides equally
+       (origin's x is centered) — same fix, applied on top of `cover`
+       rather than instead of it. Origin's y matches `object-position: top`
+       exactly, so the vertical framing this block already tuned (3/4 +
+       top) is preserved as-is; the zoom mostly just tightens the sides. */
+    transform: scale(1.2);
+    transform-origin: 50% 0%;
   }
 }
 
