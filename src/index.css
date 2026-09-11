@@ -1042,20 +1042,13 @@ button {
   .product-card__media {
     /* The 19/40 ratio above (~0.475) is tuned for desktop, where the card
        is one of several narrow grid columns. On mobile a single slide runs
-       up to 340px wide (see .piece-carousel__slide), and at that width
-       19/40 makes the photo ~680px tall — taller than most phone
-       viewports on its own, pushing the name below the fold. 4/5 is still
-       a tall portrait crop (common for full-body apparel shots) but keeps
-       the photo+name within one screen; `object-fit: cover` on the image
-       (unchanged) means this just crops a bit more top/bottom, no
-       letterboxing.  */
-    /* 4/5 alone still clipped into the chin/mouth on shots framed lower
-       in their (shared, ~0.475-ratio) canvas than the rest of the set —
-       e.g. the dad hat photo, angled down toward the product. 3/4 shows
-       ~4% more of the frame's height, enough clearance for those without
-       pushing the desktop-tuned crop noticeably further down the body on
-       the standard standing shots. */
-    aspect-ratio: 3 / 4;
+       up to 340px wide (see .piece-carousel__slide), so a box this tall
+       and narrow needs its own ratio. 2/3 keeps enough vertical room to
+       show the garment itself (sleeves, hem) rather than mostly face/neck,
+       while still fitting photo + name + badges in one screen; `object-fit:
+       cover` on the image (unchanged) means this just crops top/bottom,
+       no letterboxing. */
+    aspect-ratio: 2 / 3;
   }
 
   .product-card__image {
@@ -1069,13 +1062,12 @@ button {
     /* `cover` already fills the box with no gaps, but these full-body
        shots leave the model occupying only ~30-55% of the frame's width
        (generous side margin for framing/retouching), so even a gapless
-       crop reads as "small and distant". Scaling the already-cover-fitted
-       image up crops that side margin away on both sides equally
-       (origin's x is centered) — same fix, applied on top of `cover`
-       rather than instead of it. Origin's y matches `object-position: top`
-       exactly, so the vertical framing this block already tuned (3/4 +
-       top) is preserved as-is; the zoom mostly just tightens the sides. */
-    transform: scale(1.2);
+       crop still reads as "small and distant". A light zoom from the
+       top-center (matching object-position) tightens that side margin
+       without disturbing the vertical framing. Kept modest — 1.2 here
+       previously showed mostly face/neck and barely any garment; 1.08 is
+       enough to close up the sides without eating the body of the shot. */
+    transform: scale(1.08);
     transform-origin: 50% 0%;
   }
 }
