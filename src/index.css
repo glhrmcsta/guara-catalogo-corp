@@ -1049,7 +1049,23 @@ button {
        the photo+name within one screen; `object-fit: cover` on the image
        (unchanged) means this just crops a bit more top/bottom, no
        letterboxing.  */
-    aspect-ratio: 4 / 5;
+    /* 4/5 alone still clipped into the chin/mouth on shots framed lower
+       in their (shared, ~0.475-ratio) canvas than the rest of the set —
+       e.g. the dad hat photo, angled down toward the product. 3/4 shows
+       ~4% more of the frame's height, enough clearance for those without
+       pushing the desktop-tuned crop noticeably further down the body on
+       the standard standing shots. */
+    aspect-ratio: 3 / 4;
+  }
+
+  .product-card__image {
+    /* The source photos are full-body stills (~0.475 native ratio) shot
+       into the box above, which crops a large chunk of their height.
+       Centered `cover` split that crop between both ends and cut into
+       the model's head — `top` keeps the full head/face in frame and
+       pushes all of the crop to the feet, which reads fine in a product
+       grid (the modal still shows the uncropped photo on click). */
+    object-position: top;
   }
 }
 
