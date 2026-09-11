@@ -875,14 +875,20 @@ button {
   }
 
   .piece-carousel__track {
-    gap: 12px;
+    gap: 16px;
   }
 
   .piece-carousel__slide {
-    /* One card nearly filling the screen, with a clear slice of the next
-       one peeking in — never shrink the photo to fit more columns. */
-    width: 86vw;
-    max-width: 340px;
+    /* Was 86vw/340px — with the photo now shown uncropped (object-fit:
+       contain, no fixed aspect-ratio) the card's height tracks its width
+       directly, so that size made for a very tall rectangle. 72vw/280px
+       is a ~16% narrower card, proportionally shorter to match, with two
+       cards' worth of neighbor still peeking in on either side instead of
+       one. Gap bumped slightly (12px -> 16px) to keep it feeling like
+       breathing room rather than a cramped seam now that cards are
+       narrower. */
+    width: 72vw;
+    max-width: 280px;
   }
 
   .piece-carousel__arrow {
