@@ -1039,36 +1039,26 @@ button {
 }
 
 @media (max-width: 640px) {
+  /* Every attempt at cropping to fill the fixed 19/40 box (cover + top
+     anchor + a zoom transform) ended up as a trade-off between cutting
+     the head, cutting the garment, or leaving the model looking small —
+     because any single fixed crop is wrong for at least some of the 20
+     photos' varying poses/framing. Rather than switch to `contain` inside
+     that same fixed box (which still letterboxes: the photos' native
+     ratios actually range ~0.474-0.501, not a single constant, so a
+     fixed box is never an exact match for all of them), the box itself
+     is let go here — `aspect-ratio: auto` plus the image sized by its
+     own intrinsic ratio means the box always matches whatever photo it
+     holds exactly. No crop, no letterbox, ever, and the card is simply
+     as tall as that photo needs — no need to fight the photos into a
+     fixed-ratio box at all. */
   .product-card__media {
-    /* The 19/40 ratio above (~0.475) is tuned for desktop, where the card
-       is one of several narrow grid columns. On mobile a single slide runs
-       up to 340px wide (see .piece-carousel__slide), so a box this tall
-       and narrow needs its own ratio. 2/3 keeps enough vertical room to
-       show the garment itself (sleeves, hem) rather than mostly face/neck,
-       while still fitting photo + name + badges in one screen; `object-fit:
-       cover` on the image (unchanged) means this just crops top/bottom,
-       no letterboxing. */
-    aspect-ratio: 2 / 3;
+    aspect-ratio: auto;
   }
 
   .product-card__image {
-    /* The source photos are full-body stills (~0.475 native ratio) shot
-       into the box above, which crops a large chunk of their height.
-       Centered `cover` split that crop between both ends and cut into
-       the model's head — `top` keeps the full head/face in frame and
-       pushes all of the crop to the feet, which reads fine in a product
-       grid (the modal still shows the uncropped photo on click). */
-    object-position: top;
-    /* `cover` already fills the box with no gaps, but these full-body
-       shots leave the model occupying only ~30-55% of the frame's width
-       (generous side margin for framing/retouching), so even a gapless
-       crop still reads as "small and distant". A light zoom from the
-       top-center (matching object-position) tightens that side margin
-       without disturbing the vertical framing. Kept modest — 1.2 here
-       previously showed mostly face/neck and barely any garment; 1.08 is
-       enough to close up the sides without eating the body of the shot. */
-    transform: scale(1.08);
-    transform-origin: 50% 0%;
+    height: auto;
+    object-fit: contain;
   }
 }
 
