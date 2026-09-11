@@ -9,12 +9,22 @@ export default function PieceCarousel({ id, label, products }) {
   const trackRef = useRef(null)
   const [atStart, setAtStart] = useState(true)
   const [atEnd, setAtEnd] = useState(true)
+  // Mobile-only drag hint below the track (see .piece-carousel__scroll-*
+  // in index.css) — a thumb sized to the visible fraction of the row,
+  // positioned to match how far the row has been scrolled. Desktop hides
+  // it entirely since the leftover side space already signals scrollability.
+  const [scrollThumb, setScrollThumb] = useState({ widthPct: 100, offsetPct: 0 })
 
   const updateEdges = useCallback(() => {
     const el = trackRef.current
     if (!el) return
     setAtStart(el.scrollLeft <= 1)
     setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 1)
+
+    const maxScroll = el.scrollWidth - el.clientWidth
+    const widthPct = Math.min(100, (el.clientWidth / el.scrollWidth) * 100)
+    const offsetPct = maxScroll > 0 ? (el.scrollLeft / maxScroll) * (100 - widthPct) : 0
+    setScrollThumb({ widthPct, offsetPct })
   }, [])
 
   useEffect(() => {
@@ -81,6 +91,13 @@ export default function PieceCarousel({ id, label, products }) {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="piece-carousel__scroll-indicator" aria-hidden="true">
+        <div
+          className="piece-carousel__scroll-thumb"
+          style={{ width: `${scrollThumb.widthPct}%`, left: `${scrollThumb.offsetPct}%` }}
+        />
       </div>
     </section>
   )

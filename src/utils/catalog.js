@@ -35,57 +35,31 @@ export const CATEGORY_GROUPS = Object.keys(GRUPO_LABELS).map((grupo) => ({
 }))
 
 const NOME_TO_CATEGORIA = {
-  'camiseta oversized': 'camisetas-polos',
-  'camiseta premium': 'camisetas-polos',
-  'camisa polo': 'camisetas-polos',
-  'camisa polo double cotton': 'camisetas-polos',
-  'camisa polo tech': 'camisetas-polos',
-
-  'dolmã belmonte': 'dolmas',
-  'dolmã guaratuba': 'dolmas',
-  'dolmã pequi': 'dolmas',
-  'dolmã tapajós': 'dolmas',
-  'dolmã tucumã': 'dolmas',
-
-  'camisa cateto': 'camisas',
-  'camisa de chef': 'camisas',
-  'camisa deli': 'camisas',
-  'camisa igarapé': 'camisas',
-  'camisa kansas': 'camisas',
+  'camisa cateto em cotton': 'camisas',
+  'camisa cateto em tricoline': 'camisas',
+  'camisa cateto em linho': 'camisas',
+  'camisa cateto tech': 'camisas',
+  'camisa cateto manga curta': 'camisas',
   'camisa mawé': 'camisas',
-  'camisa prisma': 'camisas',
-  'camisa quinoa': 'camisas',
   'camisa safari': 'camisas',
 
-  'jaleco kimono': 'jalecos-coletes',
-  'jaleco raiz': 'jalecos-coletes',
-  'colete utilitário': 'jalecos-coletes',
+  'camisa polo double cotton': 'camisetas-polos',
+  'camisa polo': 'camisetas-polos',
+  'camiseta premium e pima': 'camisetas-polos',
+  'camiseta dry fit': 'camisetas-polos',
 
-  'jaqueta bomber': 'casacos-moletons',
-  'jaqueta fargo': 'casacos-moletons',
-  'jaqueta over': 'casacos-moletons',
   'jaqueta puffer': 'casacos-moletons',
   'corta vento': 'casacos-moletons',
+  'jaqueta bomber': 'casacos-moletons',
   blazer: 'casacos-moletons',
   'moletom gola careca': 'casacos-moletons',
 
-  'bermuda araticum': 'calcas-bermudas',
   'calça abaeté': 'calcas-bermudas',
-  'calça arandu': 'calcas-bermudas',
-  'calça carijó': 'calcas-bermudas',
   'calça curumim': 'calcas-bermudas',
-  'calça de chef': 'calcas-bermudas',
-  'calça pantalona': 'calcas-bermudas',
-  'calça vino': 'calcas-bermudas',
-  'macacão artsy': 'calcas-bermudas',
 
-  'saia jaçanã': 'vestidos-saias',
   'vestido bartira': 'vestidos-saias',
-  'vestido mariana': 'vestidos-saias',
 
   'boné dad hat': 'acessorios',
-  'faixa de cabelo': 'acessorios',
-  'touca de amarrar': 'acessorios',
 }
 
 function subcategoriaDe(product) {
@@ -99,7 +73,7 @@ export function categoriaDomId(categoria) {
 }
 
 export function imagePath(relativePath) {
-  return `/assets/catalogo/${relativePath}`
+  return `/assets/produtos/${relativePath}`
 }
 
 const LINHA_BY_SLUG = new Map(linhas.map((linha) => [linha.slug, linha]))
@@ -166,6 +140,13 @@ function prismaAntesDeMaweOrdem(nome) {
 }
 
 function compareProdutos(a, b) {
+  // Manual override: when both products in a comparison carry an explicit
+  // `ordem`, it wins outright over every other criterion below. Products
+  // without `ordem` (the vast majority) fall straight through to the
+  // linha + alphabetical logic exactly as before — this only changes
+  // ordering for groups where `ordem` has been set on every item.
+  if (a.ordem != null && b.ordem != null) return a.ordem - b.ordem
+
   const porTipo = tipoPecaOrdem(a.nome) - tipoPecaOrdem(b.nome)
   if (porTipo !== 0) return porTipo
   const porUltimoDoGrupo = ultimoDoGrupoOrdem(a.nome) - ultimoDoGrupoOrdem(b.nome)

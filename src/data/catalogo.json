@@ -1,7 +1,7 @@
 {
   "marca": {
     "nome": "Guará",
-    "tagline": "testado na cozinha. pronto para qualquer equipe.",
+    "tagline": "Testado na cozinha. Pronto para qualquer equipe.",
     "sobre": "A Guará nasceu em 2017 a partir de uma necessidade concreta: aproximar o design autoral da rotina intensa da hospitalidade e criar roupas que realmente acompanhassem o ritmo do dia a dia. Fundada por Luísa Enout, a marca começou no sob medida — costurando história por história, equipe por equipe — até se consolidar como referência no desenvolvimento de um vestuário híbrido e utilitário.\n\nPorque vestir uma equipe também é comunicar. É traduzir valores, criar pertencimento e fazer com que cada pessoa reconheça, naquilo que veste, o lugar que ocupa.\n\nFoi essa experiência — testada todos os dias em cozinhas, salões e operações que não podem parar — que nos trouxe até aqui. Hoje, levamos para o ambiente corporativo a mesma qualidade, funcionalidade e versatilidade que desenvolvemos para a linha de frente da hospitalidade brasileira.",
     "manifesto": "a mesma qualidade, funcionalidade e versatilidade das cozinhas, agora no escritório."
   },
@@ -25,5 +25,30 @@
       "descricao": "A linha Assinatura representa o nível mais exclusivo da Guará. São uniformes desenvolvidos sob medida, com alto nível de acabamento, tiragens limitadas e foco na representação institucional. Indicada para contextos de alta visibilidade, essa categoria transforma o uniforme em símbolo de excelência, reforçando imagem, presença e distinção."
     }
   ],
-  "produtos": []
+  "produtos": [
+    {"linha":"autoral","categoria":"parte de cima","nome":"camisa cateto em cotton","genero":"masc/fem","slug":"camisa-cateto-cotton","ordem":1,"caracteristicas":["Modelagem clássica","Corte reto com leve acinturamento","Opção com ou sem bolso frontal","Opção manga longa ou curta"],"imagens":["camisa-cateto-cotton-frente.jpg","camisa-cateto-cotton-verso.jpg"]},
+    {"linha":"casual","categoria":"parte de cima","nome":"camisa cateto em tricoline","genero":"masc/fem","slug":"camisa-cateto-tricoline","ordem":2,"caracteristicas":["Modelagem clássica","Corte reto com leve acinturamento","Opção com ou sem bolso frontal","Confeccionada em tricoline"],"imagens":["camisa-cateto-tricoline-frente.jpg","camisa-cateto-tricoline-verso.jpg"]},
+    {"linha":"autoral","categoria":"parte de cima","nome":"camisa cateto em linho","genero":"masc/fem","slug":"camisa-cateto-linho","ordem":3,"caracteristicas":["Modelagem clássica","Corte reto com leve acinturamento","Opção com ou sem bolso frontal","Confeccionada em linho"],"imagens":["camisa-cateto-linho-frente.jpg","camisa-cateto-linho-verso.jpg"]},
+    {"linha":"autoral","categoria":"parte de cima","nome":"camisa cateto tech","genero":"masc/fem","slug":"camisa-cateto-tech","ordem":4,"caracteristicas":["Modelagem clássica","Corte reto com leve acinturamento","Opção com ou sem bolso frontal","Tecido tecnológico"],"imagens":["camisa-cateto-tech-frente.jpg","camisa-cateto-tech-verso.jpg"]},
+    {"linha":"autoral","categoria":"parte de cima","nome":"camisa cateto manga curta","genero":"masc/fem","slug":"camisa-cateto-manga-curta","ordem":5,"caracteristicas":["Modelagem clássica","Corte reto com leve acinturamento","Opção com ou sem bolso frontal"],"imagens":["camisa-cateto-manga-curta-frente.jpg","camisa-cateto-manga-curta-verso.jpg"]},
+    {"linha":"autoral","categoria":"parte de cima","nome":"camisa safari","genero":"masc/fem","slug":"camisa-safari","ordem":6,"caracteristicas":["Modelagem utilitária e versátil","Manga longa com martingale","Bolsos frontais com lapela arredondada","Construção resistente com pespontos duplos"],"imagens":["camisa-safari-frente.jpg","camisa-safari-verso.jpg"]},
+    {"linha":"autoral","categoria":"parte de cima","nome":"camisa mawé","genero":"unissex","slug":"camisa-mawe","ordem":7,"caracteristicas":["Modelagem ampla","Vista oculta","Gola inglesa","Manga sino 7/8"],"imagens":["camisa-mawe-frente.jpg","camisa-mawe-verso.jpg"]},
+
+    {"linha":"autoral","categoria":"parte de cima","nome":"camiseta dry fit","genero":"unissex","slug":"camiseta-dry-fit","caracteristicas":["Modelagem clássica","Corte reto com caimento confortável","Tecido Dry Fit de alta respirabilidade","Secagem rápida"],"imagens":["camiseta-dry-fit-frente.jpg","camiseta-dry-fit-verso.jpg"]},
+    {"linha":"casual","categoria":"parte de cima","nome":"camiseta premium e pima","genero":"unissex","slug":"camiseta-premium-pima","caracteristicas":["Malha de alta qualidade","Toque macio e acabamento sofisticado","Base para personalização"],"imagens":["camiseta-premium-pima-frente.jpg","camiseta-premium-pima-verso.jpg"]},
+    {"linha":"autoral","categoria":"parte de cima","nome":"camisa polo double cotton","genero":"masc/fem","slug":"camisa-polo-double-cotton","caracteristicas":["Modelagem clássica","Gola tradicional","Base para personalização com bordado ou estampa","Confeccionada em algodão de dupla camada"],"imagens":["camisa-polo-double-cotton-frente.jpg","camisa-polo-double-cotton-verso.jpg"]},
+    {"linha":"casual","categoria":"parte de cima","nome":"camisa polo","genero":"masc/fem","slug":"camisa-polo","caracteristicas":["Modelagem clássica","Gola tradicional","Base para personalização com bordado ou estampa","Construção confortável"],"imagens":["camisa-polo-frente.jpg","camisa-polo-verso.jpg"]},
+
+    {"linha":"autoral","categoria":"parte de cima","nome":"jaqueta bomber","genero":"unissex","slug":"jaqueta-bomber","caracteristicas":["Modelagem clássica","Punhos e barra em ribana","Fechamento frontal em zíper","Construção versátil com ou sem forro"],"imagens":["jaqueta-bomber-frente.jpg","jaqueta-bomber-verso.jpg"]},
+    {"linha":"autoral","categoria":"parte de cima","nome":"corta vento","genero":"unissex","slug":"corta-vento","caracteristicas":["Corte esportivo e despojado em tecido semi impermeável","Bolsos frontais, elástico no punho e fechamento em zíper"],"imagens":["corta-vento-frente.jpg","corta-vento-verso.jpg"]},
+    {"linha":"assinatura","categoria":"parte de cima","nome":"blazer","genero":"masc/fem","slug":"blazer","caracteristicas":["Modelagem estruturada","Caimento elegante","Construção refinada","Com ou sem forro e bolsos"],"imagens":["blazer-frente.jpg","blazer-verso.jpg"]},
+    {"linha":"assinatura","categoria":"parte de cima","nome":"jaqueta puffer","genero":"unissex","slug":"jaqueta-puffer","caracteristicas":["Acabamento em tecido matelassê e fechamento em zíper","Elástico no punho e tecido semi impermeável"],"imagens":["jaqueta-puffer-frente.jpg","jaqueta-puffer-verso.jpg"]},
+    {"linha":"casual","categoria":"parte de cima","nome":"moletom gola careca","genero":"unissex","slug":"moletom-gola-careca","caracteristicas":["Tecido encorpado com toque macio","Excelente para bordar ou estampar"],"imagens":["moletom-gola-careca-frente.jpg","moletom-gola-careca-verso.jpg"]},
+
+    {"linha":"autoral","categoria":"parte de baixo","nome":"calça curumim","genero":"masc/fem","slug":"calca-curumim","caracteristicas":["Modelagem clássica","Corte reto de alfaiataria","Passantes","Bolso faca e bolso traseiro embutido"],"imagens":["calca-curumim-frente.jpg","calca-curumim-verso.jpg"]},
+    {"linha":"casual","categoria":"parte de baixo","nome":"calça abaeté","genero":"unissex","slug":"calca-abaete","caracteristicas":["Modelagem levemente slim","Cós com elástico","Bolsos faca frontais e embutido traseiro","Barra italiana"],"imagens":["calca-abaete-frente.jpg","calca-abaete-verso.jpg"]},
+    {"linha":"autoral","categoria":"parte de baixo","nome":"vestido bartira","genero":"fem","slug":"vestido-bartira","caracteristicas":["Modelagem estruturada","Vestido regata com pregas","Bolsos embutidos","Zíper invisível"],"imagens":["vestido-bartira-frente.jpg","vestido-bartira-verso.jpg"]},
+
+    {"linha":"casual","categoria":"acessórios","nome":"boné dad hat","genero":"unissex","slug":"bone-dad-hat","caracteristicas":["Sarja resistente","Ajuste traseiro em metal","Aba estruturada","Base para personalização"],"imagens":["bone-dad-hat-frente.jpg","bone-dad-hat-verso.jpg"]}
+  ]
 }

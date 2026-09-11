@@ -175,6 +175,26 @@ button {
   color: var(--guara);
 }
 
+.trust-bar-group {
+  margin-bottom: 32px;
+}
+
+.trust-bar-group:last-child {
+  margin-bottom: 0;
+}
+
+.trust-bar-group__label {
+  max-width: 1180px;
+  margin: 0 auto 16px;
+  padding: 0 24px;
+  font-family: var(--mono);
+  font-size: var(--font-size-label);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-label);
+  color: var(--ink-soft);
+}
+
 .trust-bar {
   width: 100%;
   overflow: hidden;
@@ -185,6 +205,10 @@ button {
   align-items: center;
   gap: 56px;
   width: max-content;
+  /* Duration is measured and set per-group in JS (TrustBar.jsx) from the
+     real pixel width of one logo set, so all groups scroll at the same
+     px/s speed regardless of how many logos they hold. 35s is only the
+     fallback used for the first paint, before that measurement runs. */
   animation: trust-bar-scroll 35s linear infinite;
 }
 
@@ -197,7 +221,17 @@ button {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-50%);
+    /* --trust-shift is set inline to the exact pixel distance from the
+       start of the first logo set to the start of its first repeat (see
+       TrustBar.jsx) — not a percentage. A percentage here would be wrong
+       by construction: translateX(-50%) is 50% of the *whole* track
+       (all repeats + the flex `gap`s between them), which isn't the same
+       as "one set width + one connecting gap" whenever the track holds
+       more than 2 repeats, or even with exactly 2 (percentage math is off
+       by half a gap either way) — producing a visible seam/gap each time
+       the animation loops. The -50% fallback below only applies before
+       JS has measured and set the real value on first paint. */
+    transform: translateX(var(--trust-shift, -50%));
   }
 }
 
@@ -559,7 +593,10 @@ button {
   align-items: center;
   gap: 48px;
   width: max-content;
-  animation: brand-marquee-scroll 30s linear infinite;
+  /* 120s roughly matches the trust bar's ~90px/s pace for this track's
+     width — the previous 30s ran at ~360px/s, noticeably faster than the
+     rest of the site's calmer rhythm. */
+  animation: brand-marquee-scroll 120s linear infinite;
 }
 
 .brand-marquee__item {
@@ -825,6 +862,13 @@ button {
   scroll-snap-align: start;
 }
 
+/* Drag hint for the horizontal carousel — desktop already shows leftover
+   side space that makes it obvious more cards are scrollable, so this
+   stays hidden until the mobile breakpoint below. */
+.piece-carousel__scroll-indicator {
+  display: none;
+}
+
 @media (max-width: 640px) {
   .piece-carousel {
     margin-bottom: 36px;
@@ -845,6 +889,29 @@ button {
     width: 32px;
     height: 32px;
     font-size: 16px;
+  }
+
+  .piece-carousel__scroll-indicator {
+    display: block;
+    position: relative;
+    width: 120px;
+    height: 3px;
+    margin: 14px auto 0;
+    background: var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .piece-carousel__scroll-thumb {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    min-width: 24px;
+    background: var(--guara);
+    border-radius: inherit;
+    /* Width/left are set inline per-frame from the track's real scroll
+       position (see PieceCarousel.jsx) — no transition here so the thumb
+       tracks a drag 1:1 instead of lagging behind it. */
   }
 }
 
@@ -969,6 +1036,21 @@ button {
   padding: 3px 9px;
   border: 1px solid var(--border);
   border-radius: 999px;
+}
+
+@media (max-width: 640px) {
+  .product-card__media {
+    /* The 19/40 ratio above (~0.475) is tuned for desktop, where the card
+       is one of several narrow grid columns. On mobile a single slide runs
+       up to 340px wide (see .piece-carousel__slide), and at that width
+       19/40 makes the photo ~680px tall — taller than most phone
+       viewports on its own, pushing the name below the fold. 4/5 is still
+       a tall portrait crop (common for full-body apparel shots) but keeps
+       the photo+name within one screen; `object-fit: cover` on the image
+       (unchanged) means this just crops a bit more top/bottom, no
+       letterboxing.  */
+    aspect-ratio: 4 / 5;
+  }
 }
 
 /* ---------- Product modal ---------- */

@@ -11,7 +11,7 @@ export default function Hero({ onExplorarCatalogo }) {
 
       <div className="hero__content">
         <div className="hero__inner">
-          <h1 className="hero__headline">testado na cozinha. pronto para qualquer equipe.</h1>
+          <h1 className="hero__headline">Testado na cozinha. Pronto para qualquer equipe.</h1>
 
           <a href="#catalogo" className="hero__cta" onClick={scrollToCatalogo}>
             Explorar o catálogo
